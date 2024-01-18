@@ -1,0 +1,21 @@
+[Event "Rated Rapid game"]
+[Site "https://lichess.org/l0ZLD6oq"]
+[Date "2024.01.18"]
+[White "apathychess"]
+[Black "RAVik03"]
+[Result "1-0"]
+[UTCDate "2024.01.18"]
+[UTCTime "05:20:04"]
+[WhiteElo "2026"]
+[BlackElo "2064"]
+[WhiteRatingDiff "+6"]
+[BlackRatingDiff "-28"]
+[Variant "Standard"]
+[TimeControl "600+0"]
+[ECO "B21"]
+[Opening "Sicilian Defense: Smith-Morra Gambit"]
+[Termination "Normal"]
+
+1. e4 c5 2. d4 cxd4 3. c3 dxc3 4. Nxc3 Nc6 5. Nf3 d6 6. Bc4 Nf6 7. O-O Bg4 8. Qb3 e6 9. Qxb7 Na5 10. Bb5+ Nd7 11. Bxd7+ Ke7 12. Qb5 Rb8 13. Qg5+ Kxd7 14. Qxg4 h5 15. Qf4 f6 16. Rd1 g5 17. Qe3 Qc7 18. Ne2 Nc4 19. Qc3 Be7 20. b3 Nb6 21. Qxc7+ Kxc7 22. Be3 g4 23. Nfd4 Kd7 24. Rac1 a6 25. Nc2 Ke8 26. Nb4 a5 27. Nc6 Rb7 28. Nxa5 1-0
+
+
