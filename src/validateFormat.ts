@@ -84,7 +84,8 @@ const ranks: Rank[] = [1, 2, 3, 4, 5, 6, 7, 8] as const
 
 
 // I should try doing some process of elimination. First eliminate the special moves like castling
-// Then eliminate the pawn moves with no captures. These are strings of length 2 and they only have file and rank
+// I can then look for checks and captures. I can label it as a check or capture and then remove the x or + sign to make it easier to parse
+// Then eliminate the pawn moves. These are strings of length 2 and they only have file and rank
 
 function disectMove(move: string, color: "w" | "b") {
 
