@@ -17,12 +17,17 @@ const pgn8 = "1. x4 b6"
 
 describe("PGN format validation works as expected", () => {
 
+    test.only("1", () => {
+        expect(validateFormat(pgn8)).toBe(false)
+    })
+
     test("Valid PGNs", () => {
         expect(validateFormat(pgn1)).toBe(true)
         expect(validateFormat(dubovNepoDraw)).toBe(true)
         expect(validateFormat(morphyBornemann)).toBe(true)
         expect(validateFormat(apathyMorra)).toBe(true)
     })
+
 
     test("Invalid PGNs", () => {
         expect(validateFormat(pgn2)).toBe(false)

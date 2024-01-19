@@ -130,6 +130,8 @@ function disectMove(move: string, color: "w" | "b") {
             moveAnatomy["valid"] = true
         }
 
+        console.log(move, moveAnatomy);
+
         return moveAnatomy
 
     }
