@@ -1,6 +1,7 @@
 
 type formatOrder = "number" | "whiteMove" | "blackMove"
 
+type Piece = "P" | "N" | "B" | "R" | "Q" | "K" 
 type Rank = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 type File = "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h"
 
@@ -29,7 +30,11 @@ export function validateFormat(pgn: string) {
         
             case "whiteMove":
 
-                disectMove(i, "w")
+                const moveAnatomyWhite = disectMove(i, "w")
+
+                if (!moveAnatomyWhite["valid"]) {
+                    return false
+                }
 
                 order = "blackMove"
 
@@ -37,7 +42,12 @@ export function validateFormat(pgn: string) {
 
             case "blackMove":
 
-                disectMove(i, "b")
+                const moveAnatomyBlack = disectMove(i, "b")
+
+                if (!moveAnatomyBlack["valid"]) {
+                    return false
+                }
+
 
                 order = "number"
 
@@ -55,7 +65,7 @@ export function validateFormat(pgn: string) {
 
 type MoveAnatomy = {
     color: "w" | "b"
-    piece: "P" | "N" | "B" | "R" | "Q" | "K" | null
+    piece: Piece | null
     pieceSpecifier: Rank | File | null
     rank: Rank | null 
     file: File | null
@@ -66,7 +76,15 @@ type MoveAnatomy = {
     valid: boolean
 }
 
-const pieces = ["N", "B", "R", "Q", "K"]
+const pieces: Piece[] = ["N", "B", "R", "Q", "K"] as const
+const files: File[] = ["a", "b", "c", "d", "e", "f", "g", "h"] as const
+const ranks: Rank[] = [1, 2, 3, 4, 5, 6, 7, 8] as const
+
+
+
+
+// I should try doing some process of elimination. First eliminate the special moves like castling
+// Then eliminate the pawn moves with no captures. These are strings of length 2 and they only have file and rank
 
 function disectMove(move: string, color: "w" | "b") {
 
@@ -94,10 +112,35 @@ function disectMove(move: string, color: "w" | "b") {
         return moveAnatomy
     }
 
-    for (let i = 0; i < move.length; i++) {
+    // simple pawn moves
+    if (move.length === 2) {
+
+        for (const file of files) {
+            if (move[0] === file) {
+                moveAnatomy["file"] = file;
+            }
+        }
+
+        if (Number(move[1]) >= 1 && Number(move[1]) <= 8 ) {
+            moveAnatomy["rank"] = Number(move[1]) as Rank;
+        }
+
+        if (moveAnatomy["file"] && moveAnatomy["rank"]) {
+            moveAnatomy["piece"] = "P";
+            moveAnatomy["valid"] = true
+        }
+
+        return moveAnatomy
 
     }
 
-    return moveAnatomy
+    // Piece detection
+    for (const piece of pieces) {
+        if (move[0] === piece) {
+            moveAnatomy["piece"] = piece;
+        }
+    }
+
+    return moveAnatomy;
 
 }
