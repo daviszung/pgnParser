@@ -112,6 +112,43 @@ function disectMove(move: string, color: "w" | "b") {
         moveAnatomy["valid"] = true
         return moveAnatomy
     }
+    
+    // checks and captures
+    let x = 0
+    let check = 0
+    let mate = 0
+    for (let i = 0; i < move.length; i++) {
+        if (move[i] === "x") {
+            x += 1
+        } else if (move[i] === "+") {
+            check += 1
+        } else if (move[i] === "#") {
+            mate += 1
+        }
+    }
+
+    // moves cannot have more than one x or plus sign for a move
+    if (x > 1 || check > 1 || mate > 1) {
+        moveAnatomy["valid"] = false
+        return moveAnatomy
+    }
+
+    // Qxf7+# are not correct notation, if it is checkmate you don't need to write the check
+    if (mate === 1 && check === 1) {
+        moveAnatomy["valid"] = false
+        return moveAnatomy
+    }
+
+    // register moves with captures, check, or checkmate
+    moveAnatomy["captures"] = (x === 1)
+    moveAnatomy["check"] = (check === 1)
+    moveAnatomy["checkmate"] = (mate === 1)
+
+    // removing all "x", "+", and "#"
+    let moveAsArray = move.split("")
+    moveAsArray = moveAsArray.filter((char) => char !== "x" && char !== "+" && char !== "#")
+
+    move = moveAsArray.join("")
 
     // simple pawn moves
     if (move.length === 2) {
@@ -131,8 +168,6 @@ function disectMove(move: string, color: "w" | "b") {
             moveAnatomy["valid"] = true
         }
 
-        console.log(move, moveAnatomy);
-
         return moveAnatomy
 
     }
@@ -143,6 +178,8 @@ function disectMove(move: string, color: "w" | "b") {
             moveAnatomy["piece"] = piece;
         }
     }
+
+    console.log(moveAnatomy["piece"], move);
 
     return moveAnatomy;
 

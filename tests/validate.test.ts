@@ -13,13 +13,13 @@ const morphyBornemann = "1. e4 e5 2. f4 Bc5 3. Nf3 d6 4. c3 Bg4 5. Bc4 Nf6 6. fx
 const apathyMorra = "1. e4 c5 2. d4 cxd4 3. c3 dxc3 4. Nxc3 Nc6 5. Nf3 d6 6. Bc4 Nf6 7. O-O Bg4 8. Qb3 e6 9. Qxb7 Na5 10. Bb5+ Nd7 11. Bxd7+ Ke7 12. Qb5 Rb8 13. Qg5+ Kxd7 14. Qxg4 h5 15. Qf4 f6 16. Rd1 g5 17. Qe3 Qc7 18. Ne2 Nc4 19. Qc3 Be7 20. b3 Nb6 21. Qxc7+ Kxc7 22. Be3 g4 23. Nfd4 Kd7 24. Rac1 a6 25. Nc2 Ke8 26. Nb4 a5 27. Nc6 Rb7 28. Nxa5 1-0"
 
 const pgn7 = "1. a9 a10"
-const pgn8 = "1. x4 b6"
+const pgn8 = "1. fxe4 b6++"
 
 describe("PGN format validation works as expected", () => {
 
-    test.only("1", () => {
-        expect(validateFormat(pgn8)).toBe(false)
-    })
+    // test.only("1", () => {
+    //     expect(validateFormat(pgn8)).toBe(false)
+    // })
 
     test("Valid PGNs", () => {
         expect(validateFormat(pgn1)).toBe(true)
