@@ -73,6 +73,7 @@ export type MoveAnatomy = {
     check: boolean;
     checkmate: boolean;
     special: false | "shortCastle" | "longCastle";
+    result: "w" | "b" | "d" | null
     valid: boolean;
 };
 
@@ -100,10 +101,13 @@ function disectMove(move: string, color: "w" | "b") {
         check: false,
         checkmate: false,
         special: false,
+        result: null,
         valid: false,
     };
 
-    // special move
+    // check special and result notation
+
+    // castles
     if (move === "O-O") {
         moveAnatomy["special"] = "shortCastle";
         moveAnatomy["valid"] = true;
@@ -112,6 +116,21 @@ function disectMove(move: string, color: "w" | "b") {
         moveAnatomy["special"] = "longCastle";
         moveAnatomy["valid"] = true;
         return moveAnatomy;
+    }
+
+    // results
+    if (move === "1-0") {
+        moveAnatomy["result"] = "w"
+        moveAnatomy["valid"] = true
+        return moveAnatomy
+    } else if (move === "0-1") {
+        moveAnatomy["result"] = "b"
+        moveAnatomy["valid"] = true
+        return moveAnatomy
+    } else if (move === "1/2-1/2") {
+        moveAnatomy["result"] = "d"
+        moveAnatomy["valid"] = true
+        return moveAnatomy
     }
 
     // checks and captures
@@ -197,6 +216,7 @@ function disectMove(move: string, color: "w" | "b") {
     for (const piece of pieces) {
         if (move[0] === piece) {
             moveAnatomy["piece"] = piece;
+            moveAnatomy["valid"] = true
         }
     }
 
@@ -205,7 +225,6 @@ function disectMove(move: string, color: "w" | "b") {
     return moveAnatomy;
 
 }
-
 
 // expects moves like fe4 rather than fxe4 since the disection function will remove the x
 export function handleCaptures(move: string, moveAnatomy: MoveAnatomy) {

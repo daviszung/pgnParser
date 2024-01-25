@@ -18,9 +18,9 @@ const pgn8 = "1. fxe4 b6++"
 
 describe("PGN format validation works as expected", () => {
 
-    // test.only("1", () => {
-    //     expect(validateFormat(pgn8)).toBe(false)
-    // })
+    test.only("1", () => {
+        expect(validateFormat(zungChwalyk)).toBe(true)
+    })
 
     test("Valid PGNs", () => {
         expect(validateFormat(pgn1)).toBe(true)
@@ -42,7 +42,7 @@ describe("PGN format validation works as expected", () => {
 
 })
 
-describe.only("Capture Handler works as expected", () => {
+describe("Capture Handler works as expected", () => {
 
     let dummyMoveAnatomy: MoveAnatomy = {
         color: "w",
