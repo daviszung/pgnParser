@@ -142,6 +142,8 @@ function disectMove(move: string, color: "w" | "b") {
     }
 
     // register moves with captures, check, or checkmate
+
+    // here i need to check where the sign is. for example check and mate signs will always be at length - 1
     moveAnatomy["captures"] = (x === 1);
     moveAnatomy["check"] = (check === 1);
     moveAnatomy["checkmate"] = (mate === 1);
