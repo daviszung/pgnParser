@@ -59,34 +59,53 @@ describe.only("Capture Handler works as expected", () => {
 
     beforeEach(() => {
         dummyMoveAnatomy = {
-        color: "w",
-        piece: null, 
-        pieceSpecifier: null,
-        rank: null,
-        file: null,
-        captures: false,
-        check: false,
-        checkmate: false,
-        special: false,
-        valid: false,
-    }
-
-    })
+            color: "w",
+            piece: null,
+            pieceSpecifier: null,
+            rank: null,
+            file: null,
+            captures: false,
+            check: false,
+            checkmate: false,
+            special: false,
+            valid: false,
+        };
+    });
 
     test("Valid 1", () => {
-        expect(handleCaptures("fe4", dummyMoveAnatomy)?.valid).toBe(true)
-    })
+        expect(handleCaptures("fe4", dummyMoveAnatomy)?.valid).toBe(true);
+    });
 
     test("Valid 2", () => {
-        expect(handleCaptures("ab3", dummyMoveAnatomy)?.valid).toBe(true)
-    })
+        expect(handleCaptures("ab3", dummyMoveAnatomy)?.valid).toBe(true);
+    });
+
+    test("Valid 3", () => {
+        expect(handleCaptures("Nb3", dummyMoveAnatomy)?.valid).toBe(true);
+    });
+
+    test("Valid 4", () => {
+        expect(handleCaptures("fe4+", dummyMoveAnatomy)?.valid).toBe(true);
+    });
 
     test("Invalid 1", () => {
-        expect(handleCaptures("fe9", dummyMoveAnatomy)?.valid).toBe(false)
-    })
+        expect(handleCaptures("fe9", dummyMoveAnatomy)?.valid).toBe(false);
+    });
 
     test("Invalid 2", () => {
-        expect(handleCaptures("fe0", dummyMoveAnatomy)?.valid).toBe(false)
-    })
+        expect(handleCaptures("fe0", dummyMoveAnatomy)?.valid).toBe(false);
+    });
 
-})
+    test("Invalid 3", () => {
+        expect(handleCaptures("ne4", dummyMoveAnatomy)?.valid).toBe(false);
+    });
+
+    test("Invalid 4", () => {
+        expect(handleCaptures("2e4", dummyMoveAnatomy)?.valid).toBe(false);
+    });
+
+    test("Invalid 5", () => {
+        expect(handleCaptures("B+f7", dummyMoveAnatomy)?.valid).toBe(false);
+    });
+
+});
