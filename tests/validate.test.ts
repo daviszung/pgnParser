@@ -1,5 +1,5 @@
-import { expect, test, describe } from "bun:test";
-import { validateFormat } from "../src/validateFormat";
+import { expect, test, describe, beforeEach } from "bun:test";
+import { validateFormat, handleCaptures, MoveAnatomy } from "../src/validateFormat";
 
 const pgn1 = "1. e4 e5"
 const pgn2 = "not a pgn"
@@ -38,6 +38,55 @@ describe("PGN format validation works as expected", () => {
         expect(validateFormat(pgn6)).toBe(false)
         expect(validateFormat(pgn7)).toBe(false)
         expect(validateFormat(pgn8)).toBe(false)
+    })
+
+})
+
+describe.only("Capture Handler works as expected", () => {
+
+    let dummyMoveAnatomy: MoveAnatomy = {
+        color: "w",
+        piece: null, 
+        pieceSpecifier: null,
+        rank: null,
+        file: null,
+        captures: false,
+        check: false,
+        checkmate: false,
+        special: false,
+        valid: false,
+    }
+
+    beforeEach(() => {
+        dummyMoveAnatomy = {
+        color: "w",
+        piece: null, 
+        pieceSpecifier: null,
+        rank: null,
+        file: null,
+        captures: false,
+        check: false,
+        checkmate: false,
+        special: false,
+        valid: false,
+    }
+
+    })
+
+    test("Valid 1", () => {
+        expect(handleCaptures("fe4", dummyMoveAnatomy)?.valid).toBe(true)
+    })
+
+    test("Valid 2", () => {
+        expect(handleCaptures("ab3", dummyMoveAnatomy)?.valid).toBe(true)
+    })
+
+    test("Invalid 1", () => {
+        expect(handleCaptures("fe9", dummyMoveAnatomy)?.valid).toBe(false)
+    })
+
+    test("Invalid 2", () => {
+        expect(handleCaptures("fe0", dummyMoveAnatomy)?.valid).toBe(false)
     })
 
 })

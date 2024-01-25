@@ -63,7 +63,7 @@ export function validateFormat(pgn: string) {
 
 }
 
-type MoveAnatomy = {
+export type MoveAnatomy = {
     color: "w" | "b"
     piece: Piece | null
     pieceSpecifier: Rank | File | null
@@ -152,6 +152,10 @@ function disectMove(move: string, color: "w" | "b") {
 
     move = moveAsArray.join("")
 
+    if (moveAnatomy["captures"]) {
+        return handleCaptures(move, moveAnatomy)
+    }
+
     // simple pawn moves
     if (move.length === 2) {
 
@@ -161,16 +165,16 @@ function disectMove(move: string, color: "w" | "b") {
             }
         }
 
-        if (Number(move[1]) >= 1 && Number(move[1]) <= 8 ) {
+        if (Number(move[1]) >= 1 && Number(move[1]) <= 8) {
             moveAnatomy["rank"] = Number(move[1]) as Rank;
         }
 
         if (moveAnatomy["file"] && moveAnatomy["rank"]) {
             moveAnatomy["piece"] = "P";
-            moveAnatomy["valid"] = true
+            moveAnatomy["valid"] = true;
         }
 
-        return moveAnatomy
+        return moveAnatomy;
 
     }
 
@@ -182,6 +186,36 @@ function disectMove(move: string, color: "w" | "b") {
     }
 
     console.log(moveAnatomy["piece"], move);
+
+    return moveAnatomy;
+
+}
+
+
+// expects moves like fe4 rather than fxe4 since the disection function will remove the x
+export function handleCaptures(move: string, moveAnatomy: MoveAnatomy) {
+
+    // Pawn move
+    if (move.length === 3 && files.includes(move[0] as File) && files.includes(move[1] as File) && Number(move[2]) >= 1 && Number(move[2]) <= 8) {
+        moveAnatomy["piece"] = "P";
+        moveAnatomy["file"] = move[1] as File;
+        moveAnatomy["rank"] = Number(move[2]) as Rank;
+        moveAnatomy["valid"] = true;
+
+        console.log(moveAnatomy);
+
+        return moveAnatomy;
+
+    }
+    
+
+    // Piece detection
+    for (const piece of pieces) {
+        if (move[0] === piece) {
+            moveAnatomy["piece"] = piece;
+        }
+    }
+    console.log("here", move, moveAnatomy);
 
     return moveAnatomy;
 
