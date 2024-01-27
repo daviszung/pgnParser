@@ -186,6 +186,7 @@ function disectMove(move: string, color: "w" | "b") {
 
     move = moveAsArray.join("");
 
+    // handle capture moves
     if (moveAnatomy["captures"]) {
         return handleCaptures(move, moveAnatomy);
     }

@@ -54,6 +54,7 @@ describe("Capture Handler works as expected", () => {
         check: false,
         checkmate: false,
         special: false,
+        result: null,
         valid: false,
     }
 
@@ -68,6 +69,7 @@ describe("Capture Handler works as expected", () => {
             check: false,
             checkmate: false,
             special: false,
+            result: null,
             valid: false,
         };
     });
